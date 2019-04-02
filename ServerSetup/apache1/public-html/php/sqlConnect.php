@@ -1,9 +1,11 @@
 <?php
-	session_start();
-	$url = "http://serversetup_auth_1:8080/Skitter/isAuthenticated?sessID=" . $_SESSION['user_ID'];
+	//Authenticates the user and then starts the SQL connection.
+session_start();
+	$ip = gethostbyname("serversetup_auth_1.serversetup_default");
+	$url = "http://". $ip .":8080/Skitter/isAuthenticated?userID=" . $_SESSION['user_ID'];
 	$auth = file_get_contents($url);
 
-	if(strcmp($auth, "Fail") == 0){
+	if(strpos($auth, "Fail") == true){
 		die("Authentication Failure");
 	}
 
